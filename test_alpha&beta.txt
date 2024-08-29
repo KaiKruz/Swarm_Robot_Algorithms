@@ -1,0 +1,99 @@
+esting with alpha=0.5, beta=1.0
+Best distance for alpha=0.5, beta=1.0: 17.367457685339062
+Time taken for alpha=0.5, beta=1.0: 0.13 seconds
+
+Testing with alpha=0.5, beta=2.0
+Best distance for alpha=0.5, beta=2.0: 17.367457685339062
+Time taken for alpha=0.5, beta=2.0: 0.12 seconds
+
+Testing with alpha=0.5, beta=5.0
+Best distance for alpha=0.5, beta=5.0: 17.367457685339062
+Time taken for alpha=0.5, beta=5.0: 0.12 seconds
+
+Testing with alpha=0.5, beta=10.0
+Best distance for alpha=0.5, beta=10.0: 17.367457685339062
+Time taken for alpha=0.5, beta=10.0: 0.13 seconds
+
+Testing with alpha=0.5, beta=20.0
+Best distance for alpha=0.5, beta=20.0: 17.367457685339062
+Time taken for alpha=0.5, beta=20.0: 0.10 seconds
+
+Testing with alpha=1.0, beta=1.0
+Best distance for alpha=1.0, beta=1.0: 17.367457685339062
+Time taken for alpha=1.0, beta=1.0: 0.12 seconds
+
+Testing with alpha=1.0, beta=2.0
+Best distance for alpha=1.0, beta=2.0: 17.367457685339062
+Time taken for alpha=1.0, beta=2.0: 0.12 seconds
+
+Testing with alpha=1.0, beta=5.0
+Best distance for alpha=1.0, beta=5.0: 17.367457685339062
+Time taken for alpha=1.0, beta=5.0: 0.12 seconds
+
+Testing with alpha=1.0, beta=10.0
+Best distance for alpha=1.0, beta=10.0: 17.367457685339062
+Time taken for alpha=1.0, beta=10.0: 0.12 seconds
+
+Testing with alpha=1.0, beta=20.0
+Best distance for alpha=1.0, beta=20.0: 17.367457685339062
+Time taken for alpha=1.0, beta=20.0: 0.11 seconds
+
+Testing with alpha=2.0, beta=1.0
+Best distance for alpha=2.0, beta=1.0: 17.367457685339062
+Time taken for alpha=2.0, beta=1.0: 0.12 seconds
+
+Testing with alpha=2.0, beta=2.0
+Best distance for alpha=2.0, beta=2.0: 17.367457685339062
+Time taken for alpha=2.0, beta=2.0: 0.11 seconds
+
+Testing with alpha=2.0, beta=5.0
+Best distance for alpha=2.0, beta=5.0: 17.367457685339062
+Time taken for alpha=2.0, beta=5.0: 0.11 seconds
+
+Testing with alpha=2.0, beta=10.0
+Best distance for alpha=2.0, beta=10.0: 17.367457685339062
+Time taken for alpha=2.0, beta=10.0: 0.11 seconds
+
+Testing with alpha=2.0, beta=20.0
+Best distance for alpha=2.0, beta=20.0: 17.367457685339062
+Time taken for alpha=2.0, beta=20.0: 0.11 seconds
+
+Testing with alpha=5.0, beta=1.0
+Best distance for alpha=5.0, beta=1.0: 17.367457685339062
+Time taken for alpha=5.0, beta=1.0: 0.11 seconds
+
+Testing with alpha=5.0, beta=2.0
+Best distance for alpha=5.0, beta=2.0: 17.367457685339062
+Time taken for alpha=5.0, beta=2.0: 0.11 seconds
+
+Testing with alpha=5.0, beta=5.0
+Best distance for alpha=5.0, beta=5.0: 17.367457685339062
+Time taken for alpha=5.0, beta=5.0: 0.11 seconds
+
+Testing with alpha=5.0, beta=10.0
+Best distance for alpha=5.0, beta=10.0: 17.367457685339062
+Time taken for alpha=5.0, beta=10.0: 0.11 seconds
+
+Testing with alpha=5.0, beta=20.0
+Best distance for alpha=5.0, beta=20.0: 17.367457685339062
+Time taken for alpha=5.0, beta=20.0: 0.16 seconds
+
+Testing with alpha=10.0, beta=1.0
+Best distance for alpha=10.0, beta=1.0: 17.367457685339062
+Time taken for alpha=10.0, beta=1.0: 0.10 seconds
+
+Testing with alpha=10.0, beta=2.0
+Best distance for alpha=10.0, beta=2.0: 17.367457685339062
+Time taken for alpha=10.0, beta=2.0: 0.10 seconds
+
+Testing with alpha=10.0, beta=5.0
+Best distance for alpha=10.0, beta=5.0: 17.367457685339062
+Time taken for alpha=10.0, beta=5.0: 0.12 seconds
+
+Testing with alpha=10.0, beta=10.0
+Best distance for alpha=10.0, beta=10.0: 17.367457685339062
+Time taken for alpha=10.0, beta=10.0: 0.12 seconds
+
+Testing with alpha=10.0, beta=20.0
+Best distance for alpha=10.0, beta=20.0: 17.367457685339062
+Time taken for alpha=10.0, beta=20.0: 0.11 seconds
