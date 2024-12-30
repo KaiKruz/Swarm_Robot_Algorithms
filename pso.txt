@@ -1,0 +1,6 @@
+--- Simulation Summary ---
+Number of Simulations: 5
+Average Final Coverage: 20.32%
+Average Iterations to Completion: 1315.40
+Average Total Energy Remaining: 4815.50
+Average Active Robots at End: 35.40
