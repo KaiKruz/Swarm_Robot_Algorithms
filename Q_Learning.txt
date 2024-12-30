@@ -1,0 +1,12 @@
+Episode 1: Best distance = 481, Route = [4, 9, 0, 2, 3, 5, 1, 6, 8, 7]
+Episode 101: Best distance = 462, Route = [0, 9, 3, 2, 1, 5, 4, 6, 7, 8]
+Episode 201: Best distance = 450, Route = [0, 4, 6, 8, 2, 1, 3, 9, 5, 7]
+Episode 301: Best distance = 447, Route = [1, 6, 0, 3, 8, 7, 9, 2, 4, 5]
+Episode 401: Best distance = 447, Route = [1, 6, 0, 3, 8, 7, 9, 2, 4, 5]
+Episode 501: Best distance = 437, Route = [9, 0, 6, 4, 1, 2, 8, 5, 7, 3]
+Episode 601: Best distance = 437, Route = [9, 0, 6, 4, 1, 2, 8, 5, 7, 3]
+Episode 701: Best distance = 437, Route = [9, 0, 6, 4, 1, 2, 8, 5, 7, 3]
+Episode 801: Best distance = 437, Route = [9, 0, 6, 4, 1, 2, 8, 5, 7, 3]
+Episode 901: Best distance = 437, Route = [9, 0, 6, 4, 1, 2, 8, 5, 7, 3]
+
+Best route found using Q-learning: [9, 0, 6, 4, 1, 2, 8, 5, 7, 3] with distance 437
