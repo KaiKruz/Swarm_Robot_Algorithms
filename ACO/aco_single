@@ -1,0 +1,148 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import random
+import math
+from scipy.spatial import KDTree
+from collections import deque
+
+# Environment Parameters
+ENV_WIDTH = 50
+ENV_HEIGHT = 50
+START_POINTS = [(10, 10)]
+GOAL_POINTS = [(40, 40)]
+
+# Simulation Parameters
+NUM_ANTS = 1  # Single ant for debugging
+TIME_STEP = 0.1
+EVAPORATION_RATE = 0.03
+Q = 100.0
+GOAL_ATTRACTION_WEIGHT = 2.0
+PERCEPTION_RADIUS = 5.0
+MAX_SPEED = 2.0
+MAX_FORCE = 0.1
+
+# Classes for Environment and Ant Behavior
+class Obstacle:
+    def __init__(self, position, size):
+        self.position = np.array(position)
+        self.size = size
+
+class Environment:
+    def __init__(self):
+        self.width = ENV_WIDTH
+        self.height = ENV_HEIGHT
+        self.obstacles = self.generate_obstacles()
+        if self.obstacles:
+            self.obstacle_tree = KDTree([obs.position for obs in self.obstacles])
+        else:
+            self.obstacle_tree = None
+
+    def generate_obstacles(self):
+        return []  # No obstacles for debugging
+
+    def get_nearby_obstacles(self, point):
+        if self.obstacle_tree is None:
+            return []
+        indices = self.obstacle_tree.query_ball_point(point, PERCEPTION_RADIUS)
+        return [self.obstacles[i] for i in indices]
+
+class Ant:
+    def __init__(self, env, start_point, goal_point, pheromone_map):
+        self.env = env
+        self.position = np.array(start_point, dtype=float)
+        self.velocity = np.zeros(2)
+        self.acceleration = np.zeros(2)
+        self.goal_point = np.array(goal_point, dtype=float)
+        self.pheromone_map = pheromone_map
+        self.path = deque([tuple(self.position)])
+        self.completed = False
+
+    def apply_force(self, force):
+        self.acceleration += force
+
+    def apply_goal_attraction(self):
+        desired = self.goal_point - self.position
+        distance_to_goal = np.linalg.norm(desired)
+        if distance_to_goal > 0:
+            desired = (desired / distance_to_goal) * MAX_SPEED
+            steering = desired - self.velocity
+            attraction_strength = GOAL_ATTRACTION_WEIGHT * (3 + 50 / (distance_to_goal + 1))
+            self.apply_force(attraction_strength * steering)
+
+    def apply_pheromone_attraction(self):
+        x, y = int(self.position[0]), int(self.position[1])
+        if 0 <= x < self.pheromone_map.shape[0] and 0 <= y < self.pheromone_map.shape[1]:
+            pheromone_level = self.pheromone_map[x, y]
+            gradient = np.array([0.0, 0.0])
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < self.pheromone_map.shape[0] and 0 <= ny < self.pheromone_map.shape[1]:
+                        if self.pheromone_map[nx, ny] > pheromone_level:
+                            gradient += np.array([dx, dy])
+            if np.linalg.norm(gradient) > 0:
+                gradient = (gradient / np.linalg.norm(gradient)) * MAX_SPEED - self.velocity
+                self.apply_force(gradient)
+
+    def move(self):
+        if np.linalg.norm(self.acceleration) > MAX_FORCE:
+            self.acceleration = (self.acceleration / np.linalg.norm(self.acceleration)) * MAX_FORCE
+        self.velocity += self.acceleration
+        if np.linalg.norm(self.velocity) > MAX_SPEED:
+            self.velocity = (self.velocity / np.linalg.norm(self.velocity)) * MAX_SPEED
+        new_position = self.position + self.velocity * TIME_STEP
+        self.position = new_position
+        self.path.append(tuple(self.position))
+        self.acceleration.fill(0)
+
+    def update(self, ants):
+        if not self.completed:
+            self.apply_goal_attraction()
+            self.apply_pheromone_attraction()
+            self.move()
+            if np.linalg.norm(self.position - self.goal_point) < 2.0:
+                self.completed = True
+
+    def deposit_pheromones(self, pheromone_map):
+        for point in self.path:
+            x, y = int(point[0]), int(point[1])
+            if 0 <= x < pheromone_map.shape[0] and 0 <= y < pheromone_map.shape[1]:
+                distance_to_goal = np.linalg.norm(np.array([x, y]) - self.goal_point)
+                boost_factor = 1 + 20 / (distance_to_goal + 1)
+                pheromone_map[x, y] += Q / (len(self.path) + 1) * boost_factor
+
+# Visualization and Debugging
+def visualize_environment(env, pheromone_map, ants, iteration):
+    fig, ax = plt.subplots(figsize=(7, 7))
+    img = ax.imshow(pheromone_map, cmap="viridis", origin="lower", alpha=0.7)
+    ant_positions = [ant.position for ant in ants]
+    ant_scatter = ax.scatter(*zip(*ant_positions), color="red", s=20, label="Ants")
+    ax.set_xlim(0, ENV_WIDTH)
+    ax.set_ylim(0, ENV_HEIGHT)
+    ax.grid(True)
+    plt.title(f"Iteration: {iteration}")
+    plt.show()
+
+def log_deceleration(ants, iteration):
+    print(f"\n--- Iteration {iteration} ---")
+    for i, ant in enumerate(ants):
+        velocity_norm = np.linalg.norm(ant.velocity)
+        print(f"Ant {i + 1}: Position = {ant.position}, Velocity Magnitude = {velocity_norm:.2f}, Completed = {ant.completed}")
+
+# Simulation Execution
+def run_simulation():
+    env = Environment()
+    pheromone_map = np.ones((ENV_WIDTH, ENV_HEIGHT)) * 1.0
+    ants = [Ant(env, START_POINTS[0], GOAL_POINTS[0], pheromone_map)]
+    for iteration in range(20):
+        pheromone_map *= (1 - EVAPORATION_RATE)
+        for ant in ants:
+            ant.update(ants)
+            if ant.completed:
+                ant.deposit_pheromones(pheromone_map)
+        log_deceleration(ants, iteration)
+        if iteration % 5 == 0:
+            visualize_environment(env, pheromone_map, ants, iteration)
+
+run_simulation()

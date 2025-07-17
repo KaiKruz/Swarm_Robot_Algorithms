@@ -1,0 +1,85 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+# Set the style for seaborn
+sns.set(style='whitegrid')
+
+# Define directories
+data_dir = 'data/'
+figures_dir = 'figures/'
+os.makedirs(figures_dir, exist_ok=True)
+
+# Load simulation data
+results_file = os.path.join(data_dir, 'simulation_results.csv')
+
+if not os.path.exists(results_file):
+    raise FileNotFoundError(f"The results file does not exist at: {results_file}. "
+                            "Please ensure the simulation script has run and generated the data.")
+
+df = pd.read_csv(results_file)
+
+# Display the first few rows
+print("First few rows of the dataset:")
+print(df.head())
+
+# Statistical Analysis
+print("Statistical Summary:")
+print(df.describe())
+
+# Plot Best Path Length Distribution
+plt.figure(figsize=(10, 6))
+sns.histplot(df['best_path_length'], bins=15, kde=True)
+plt.title('Distribution of Best Path Lengths')
+plt.xlabel('Best Path Length')
+plt.ylabel('Frequency')
+plt.savefig(os.path.join(figures_dir, 'path_length_distribution.png'))
+plt.show()
+
+# Plot Convergence Time Distribution
+plt.figure(figsize=(10, 6))
+sns.histplot(df['iterations'], bins=15, kde=True, color='orange')
+plt.title('Distribution of Iterations to Convergence')
+plt.xlabel('Iterations')
+plt.ylabel('Frequency')
+plt.savefig(os.path.join(figures_dir, 'iterations_distribution.png'))
+plt.show()
+
+# Plot Total Time Distribution
+plt.figure(figsize=(10, 6))
+sns.histplot(df['total_time'], bins=15, kde=True, color='green')
+plt.title('Distribution of Total Simulation Time')
+plt.xlabel('Total Time (seconds)')
+plt.ylabel('Frequency')
+plt.savefig(os.path.join(figures_dir, 'total_time_distribution.png'))
+plt.show()
+
+# Box Plot for Best Path Lengths
+plt.figure(figsize=(8, 6))
+sns.boxplot(y='best_path_length', data=df)
+plt.title('Box Plot of Best Path Lengths')
+plt.ylabel('Best Path Length')
+plt.savefig(os.path.join(figures_dir, 'best_path_length_boxplot.png'))
+plt.show()
+
+# Scatter Plot of Best Path Length vs. Iterations
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='iterations', y='best_path_length', data=df)
+plt.title('Best Path Length vs. Iterations')
+plt.xlabel('Iterations')
+plt.ylabel('Best Path Length')
+plt.savefig(os.path.join(figures_dir, 'best_path_vs_iterations.png'))
+plt.show()
+
+# Correlation Analysis
+correlation = df.corr()
+print("Correlation Matrix:")
+print(correlation)
+
+# Heatmap of Correlation Matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(correlation, annot=True, cmap='coolwarm')
+plt.title('Correlation Matrix Heatmap')
+plt.savefig(os.path.join(figures_dir, 'correlation_heatmap.png'))
+plt.show()
